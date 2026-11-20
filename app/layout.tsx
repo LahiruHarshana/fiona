@@ -1,6 +1,8 @@
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navigation from "@/components/Navigation";
+import StructuredData from "@/components/StructuredData";
+import { getSiteOrigin, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
@@ -19,10 +21,11 @@ const sans = Inter({
   display: "swap",
 });
 
+const origin = getSiteOrigin();
+
 export const metadata: Metadata = {
-  title: "Villa FIONA | Purely Green Serenity in Galle",
-  description:
-    "A traditional-modern Sri Lankan luxury retreat in Mihiripanna, Galle, 80m from the ocean and close to Dalawella Turtle Beach.",
+  ...pageMetadata("home"),
+  metadataBase: origin ? new URL(origin) : undefined,
 };
 
 export default function RootLayout({
@@ -41,6 +44,7 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Footer />
+        <StructuredData />
       </body>
     </html>
   );

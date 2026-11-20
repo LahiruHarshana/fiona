@@ -1,9 +1,14 @@
 import PageHero from "@/components/PageHero";
-import Reveal, { Stagger, StaggerItem } from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Reveal";
+import type { Metadata } from "next";
 import { ArrowRight, BedDouble, ChefHat, DoorOpen } from "lucide-react";
 import Link from "next/link";
-import { HeritageRosette, LiyaVelaBorder } from "@/components/SriLankanCinematicHome";
+import { HeritageRosette } from "@/components/SriLankanCinematicHome";
 import { villaImages } from "@/lib/villaMedia";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const villas = [
   {
@@ -75,12 +80,6 @@ export default function VillasPage() {
           ))}
         </Stagger>
       </section>
-
-      <Reveal direction="none">
-        <div className="w-full mt-10">
-          <LiyaVelaBorder className="w-full h-auto text-gold opacity-80" />
-        </div>
-      </Reveal>
     </main>
   );
 }

@@ -1,35 +1,12 @@
 "use client";
 
+import { getFocusableElements, trapTabKey } from "@/lib/focusTrap";
+import { brand, contact, footerNavigation, navigationItems, type NavigationLink } from "@/lib/site";
 import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
-import { CalendarDays, ChevronDown, Leaf, Menu, Phone, X } from "lucide-react";
+import { Leaf, Menu, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-
-type NavigationItem = {
-  label: string;
-  href?: string;
-  children?: {
-    label: string;
-    href: string;
-  }[];
-};
-
-const navigationItems: NavigationItem[] = [
-  { label: "Home", href: "/" },
-  { label: "The Retreat", href: "/retreat" },
-  {
-    label: "Stay",
-    children: [
-      { label: "Garden Villas", href: "/villas" },
-      { label: "Wellness Hideaway", href: "/wellness" },
-      { label: "Private Dining", href: "/experiences" },
-    ],
-  },
-  { label: "Experiences", href: "/experiences" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
-];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const panelEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -60,12 +37,15 @@ const itemVariants: Variants = {
   },
 };
 
-function isActive(pathname: string, item: NavigationItem) {
-  if (item.href) {
-    return item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-  }
+const followUsLinks = [
+  { label: `Instagram ${contact.instagramHandle}`, href: contact.instagram, external: true },
+  { label: `Facebook ${contact.facebookLabel}`, href: contact.facebook, external: true },
+  { label: "WhatsApp", href: contact.whatsapp, external: true },
+  { label: "Email Fiona Green Serenity", href: contact.mailtoHref, external: false },
+] as const;
 
-  return item.children?.some((child) => pathname.startsWith(child.href)) ?? false;
+function isActive(pathname: string, href: NavigationLink["href"]) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
 function NavigationMenuItem({
@@ -73,86 +53,25 @@ function NavigationMenuItem({
   pathname,
   closeMenu,
 }: {
-  item: NavigationItem;
+  item: NavigationLink;
   pathname: string;
   closeMenu: () => void;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const active = isActive(pathname, item);
-  const hasChildren = Boolean(item.children?.length);
-
-  useEffect(() => {
-    if (active && hasChildren) {
-      setIsOpen(true);
-    }
-  }, [active, hasChildren]);
-
-  if (!hasChildren && item.href) {
-    return (
-      <motion.li variants={itemVariants}>
-        <Link
-          href={item.href}
-          onClick={closeMenu}
-          className={`group inline-flex items-center gap-3 font-sans text-[15px] font-light transition-colors duration-300 ${
-            active ? "text-gold-deep" : "text-olive-700 hover:text-gold-deep"
-          }`}
-        >
-          <span className="h-px w-0 bg-gold transition-all duration-300 group-hover:w-6" />
-          {item.label}
-        </Link>
-      </motion.li>
-    );
-  }
+  const active = isActive(pathname, item.href);
 
   return (
     <motion.li variants={itemVariants}>
-      <button
-        type="button"
-        onClick={() => setIsOpen((current) => !current)}
-        className={`group inline-flex items-center gap-3 font-sans text-[15px] font-light transition-colors duration-300 ${
-          active || isOpen ? "text-gold-deep" : "text-olive-700 hover:text-gold-deep"
+      <Link
+        href={item.href}
+        onClick={closeMenu}
+        aria-current={active ? "page" : undefined}
+        className={`group inline-flex min-h-11 items-center gap-3 font-sans text-[15px] font-light transition-colors duration-300 ${
+          active ? "text-gold-deep" : "text-olive-700 hover:text-gold-deep"
         }`}
-        aria-expanded={isOpen}
       >
         <span className="h-px w-0 bg-gold transition-all duration-300 group-hover:w-6" />
         {item.label}
-        <ChevronDown
-          className={`h-3.5 w-3.5 transition-transform duration-300 ${
-            isOpen ? "rotate-180 text-gold" : "text-olive-300"
-          }`}
-          aria-hidden="true"
-        />
-      </button>
-
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.ul
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden pl-5"
-          >
-            {item.children?.map((child) => {
-              const childActive = pathname.startsWith(child.href);
-
-              return (
-                <li key={child.href} className="pt-3">
-                  <Link
-                    href={child.href}
-                    onClick={closeMenu}
-                    className={`text-[15px] font-light transition-colors duration-300 ${
-                      childActive ? "text-gold-deep" : "text-olive-500 hover:text-gold-deep"
-                    }`}
-                  >
-                    {child.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+      </Link>
     </motion.li>
   );
 }
@@ -163,11 +82,16 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  const wasOpen = useRef(false);
   const prefersReducedMotion = useReducedMotion();
   const isHome = pathname === "/";
 
+  const hideForHero = isHome && !scrolled && !menuOpen;
+
   const headerClass = useMemo(() => {
-    if (isHome && !scrolled && !menuOpen) {
+    if (hideForHero) {
       return "pointer-events-none -translate-y-full border-transparent opacity-0";
     }
 
@@ -177,7 +101,7 @@ export default function Navigation() {
     const position = hidden && !menuOpen ? "-translate-y-full" : "translate-y-0";
 
     return `${tone} ${position}`;
-  }, [hidden, isHome, menuOpen, scrolled]);
+  }, [hidden, hideForHero, menuOpen, scrolled]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -203,68 +127,117 @@ export default function Navigation() {
   }, [menuOpen]);
 
   useEffect(() => {
+    if (menuOpen) {
+      wasOpen.current = true;
+      const frame = window.requestAnimationFrame(() => {
+        const first = drawerRef.current ? getFocusableElements(drawerRef.current)[0] : undefined;
+        first?.focus();
+      });
+
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    if (wasOpen.current) {
+      menuButtonRef.current?.focus();
+      wasOpen.current = false;
+    }
+
+    return undefined;
+  }, [menuOpen]);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMenuOpen(false);
+      }
+
+      if (menuOpen && drawerRef.current) {
+        trapTabKey(event, drawerRef.current);
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
 
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${headerClass}`}
+        className={`fixed inset-x-0 top-0 ${menuOpen ? "z-[60]" : "z-50"} transition-all duration-300 ${headerClass}`}
+        aria-hidden={hideForHero}
+        inert={hideForHero ? true : undefined}
       >
-        <div className="editorial-container grid h-20 grid-cols-[auto_1fr_auto] items-center gap-4 max-sm:h-18 sm:h-24">
-          <button
-            type="button"
-            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((current) => !current)}
-            className="flex h-11 w-11 items-center justify-center border border-gold/50 bg-olive-900 text-gold transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-olive-900"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {menuOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                >
-                  <X className="h-5 w-5" aria-hidden="true" />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                >
-                  <Menu className="h-5 w-5" aria-hidden="true" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
+        <div className="flex h-20 items-center justify-between px-10 text-[11px] font-bold uppercase tracking-widest text-white/90 max-sm:h-[4.5rem] max-sm:px-5 max-sm:text-[10px] sm:h-24">
+          <div className="flex items-center gap-6 max-sm:gap-3">
+            <button
+              ref={menuButtonRef}
+              type="button"
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+              aria-controls="site-navigation-drawer"
+              onClick={() => setMenuOpen((current) => !current)}
+              className="flex h-11 w-11 shrink-0 items-center justify-center text-white/90 transition-colors duration-300 hover:text-gold xl:hidden"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {menuOpen ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <X className="h-5 w-5" aria-hidden="true" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <Menu className="h-5 w-5" aria-hidden="true" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
 
-          <Link href="/" className="justify-self-center flex flex-col items-center" onClick={closeMenu}>
-            <img src="/images/logo.png" alt="Fiona Villa Logo" className="h-16 w-auto object-contain mix-blend-screen max-sm:h-14 sm:h-20" />
-          </Link>
+            <p>Follow Us</p>
+            <div className="flex items-center gap-4 max-sm:gap-2.5" aria-label="Follow us">
+              {followUsLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-label={item.label}
+                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="inline-flex h-11 w-11 items-center justify-center text-white/90 hover:text-gold"
+                >
+                  <span className="h-4 w-4 rounded-full border border-current" aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </div>
 
-          <Link
-            href="/contact"
-            className="hidden items-center gap-2 border border-gold bg-gold px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-olive-900 transition-colors duration-300 hover:bg-ivory hover:border-ivory sm:inline-flex"
-          >
-            <CalendarDays className="h-4 w-4" aria-hidden="true" />
-            Reserve
-          </Link>
+          <nav className="hidden items-center gap-8 xl:flex 2xl:gap-12" aria-label="Primary">
+            {footerNavigation.map((item) => {
+              const active = isActive(pathname, item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`whitespace-nowrap transition-colors hover:text-gold ${active ? "text-gold" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </header>
 
@@ -283,36 +256,37 @@ export default function Navigation() {
             />
 
             <motion.aside
-              className="fixed bottom-0 left-0 top-0 z-50 flex w-[min(88vw,380px)] flex-col overflow-y-auto border-r border-sand bg-paper px-8 py-8 text-olive-500 shadow-botanical max-sm:w-[min(100vw,380px)] max-sm:px-5 max-sm:py-6 sm:px-10"
+              ref={drawerRef}
+              id="site-navigation-drawer"
+              tabIndex={-1}
+              aria-label="Site menu"
+              className="fixed bottom-0 left-0 top-0 z-[55] flex w-[min(88vw,380px)] flex-col overflow-x-hidden overflow-y-auto border-r border-sand bg-paper px-8 pb-8 pt-24 text-olive-500 shadow-botanical max-sm:w-[min(100vw,380px)] max-sm:px-5 max-sm:pb-6 sm:px-10 sm:pt-28"
               variants={prefersReducedMotion ? undefined : panelVariants}
               initial={prefersReducedMotion ? { x: 0 } : "closed"}
               animate={prefersReducedMotion ? { x: 0 } : "open"}
               exit={prefersReducedMotion ? { x: "-100%" } : "closed"}
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-display font-light text-2xl text-olive-900">
-                    Villa <em>FIONA</em>
-                  </p>
-                  <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-gold-deep">
-                    Mihiripanna, Galle
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  aria-label="Close menu"
-                  onClick={closeMenu}
-                  className="flex h-10 w-10 items-center justify-center border border-sand text-olive-700 transition-colors duration-300 hover:border-gold hover:text-gold-deep"
-                >
-                  <X className="h-4 w-4" aria-hidden="true" />
-                </button>
+              <button
+                type="button"
+                className="sr-only"
+                onClick={closeMenu}
+              >
+                Close menu
+              </button>
+              <div>
+                <p className="font-display font-light text-2xl text-olive-900">
+                  {brand.name}
+                </p>
+                <p className="mt-1 max-w-[16rem] text-[10px] uppercase leading-4 tracking-[0.22em] text-gold-deep">
+                  {brand.location}
+                </p>
               </div>
 
               <nav className="mt-20 max-sm:mt-12" aria-label="Primary navigation">
                 <motion.ul className="space-y-4" variants={prefersReducedMotion ? undefined : itemVariants}>
                   {navigationItems.map((item) => (
                     <NavigationMenuItem
-                      key={item.href ?? item.label}
+                      key={item.href}
                       item={item}
                       pathname={pathname}
                       closeMenu={closeMenu}
@@ -327,22 +301,22 @@ export default function Navigation() {
               >
                 <div className="mb-6 h-px w-16 bg-gold" />
                 <Link
-                  href="tel:+94771234567"
+                  href={contact.telHref}
                   className="group flex items-center gap-4 text-olive-700"
                 >
                   <span className="flex h-12 w-12 items-center justify-center border border-gold-soft text-gold-deep transition-colors duration-300 group-hover:border-gold">
                     <Phone className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <span>
-                    <span className="block text-sm text-gold-deep">Reservation</span>
+                    <span className="block text-sm text-gold-deep">Phone / WhatsApp</span>
                     <span className="block text-lg font-light text-olive-900">
-                      +94 77 123 4567
+                      {contact.phoneDisplay}
                     </span>
                   </span>
                 </Link>
                 <p className="mt-8 flex items-center gap-2 text-sm leading-6 text-olive-300">
                   <Leaf className="h-4 w-4 text-sage" aria-hidden="true" />
-                  Purely green serenity, 80m from the ocean.
+                  {brand.tagline}
                 </p>
               </motion.div>
             </motion.aside>

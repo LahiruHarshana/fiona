@@ -1,8 +1,13 @@
 import PageHero from "@/components/PageHero";
 import Reveal, { Stagger, StaggerItem } from "@/components/Reveal";
+import type { Metadata } from "next";
 import { BriefcaseBusiness, Moon, Sparkles } from "lucide-react";
-import { HeritageRosette, LiyaVelaBorder } from "@/components/SriLankanCinematicHome";
+import { HeritageRosette } from "@/components/SriLankanCinematicHome";
 import { villaImages } from "@/lib/villaMedia";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const rituals = [
   {
@@ -92,12 +97,6 @@ export default function WellnessPage() {
             ))}
           </Stagger>
         </section>
-      </Reveal>
-
-      <Reveal direction="none">
-        <div className="w-full mt-20">
-          <LiyaVelaBorder className="w-full h-auto text-gold opacity-80" />
-        </div>
       </Reveal>
     </main>
   );

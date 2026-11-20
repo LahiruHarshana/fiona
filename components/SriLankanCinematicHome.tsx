@@ -1,5 +1,7 @@
 "use client";
 
+import CinematicHeroNav from "@/components/CinematicHeroNav";
+import HomepageBelowHero from "@/components/home/HomepageBelowHero";
 import {
   allVillaImages,
   villaAlbums,
@@ -594,23 +596,7 @@ function CinematicHero() {
       <div className="absolute inset-y-0 right-0 w-1/2 bg-black/20 z-10" />
 
       {/* Navigation Layer */}
-      <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-10 py-8 text-[11px] font-bold uppercase tracking-widest text-white/90 max-sm:px-5 max-sm:py-6 max-sm:text-[10px]">
-        <div className="flex items-center gap-6 z-20 max-sm:gap-3">
-          <span>Follow Us</span>
-          <div className="flex gap-4 max-sm:gap-2.5">
-            <span className="h-4 w-4 rounded-full border border-white/50"></span>
-            <span className="h-4 w-4 rounded-full border border-white/50"></span>
-            <span className="h-4 w-4 rounded-full border border-white/50"></span>
-            <span className="h-4 w-4 rounded-full border border-white/50"></span>
-          </div>
-        </div>
-        <div className="hidden md:flex gap-12 z-20">
-          <Link href="/villas" className="hover:text-gold transition-colors">Villas</Link>
-          <Link href="/retreat" className="hover:text-gold transition-colors">Retreat</Link>
-          <Link href="/gallery" className="hover:text-gold transition-colors">Gallery</Link>
-          <Link href="/contact" className="hover:text-gold transition-colors">Contact</Link>
-        </div>
-      </div>
+      <CinematicHeroNav />
 
       {/* Main Text Container - Static right side, animated left side for bg transition */}
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
@@ -1155,25 +1141,6 @@ function ClosingCTA() {
   );
 }
 
-export const LiyaVelaBorder = ({ className = "" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
-    <rect width="1200" height="120" fill="#FDFBF7" />
-    <path d="M0 18H1200M0 102H1200" stroke="#CAAE69" strokeWidth="4" />
-    <path d="M0 32H1200M0 88H1200" stroke="#EFE8D6" strokeWidth="2" opacity="0.82" />
-    {Array.from({ length: 12 }).map((_, i) => {
-      const x = i * 100;
-      return (
-        <g key={x} transform={`translate(${x} 0)`}>
-          <path d="M14 62c20-44 52-44 72 0M20 62c14 28 46 28 60 0" fill="none" stroke="#CAAE69" strokeWidth="6" strokeLinecap="round" />
-          <path d="M50 33c-8 15-8 39 0 54c8-15 8-39 0-54Z" fill="#EFE8D6" stroke="#CAAE69" strokeWidth="3" />
-          <circle cx="50" cy="60" r="9" fill="#393D30" />
-          <path d="M5 60c16-12 28-12 45 0c17 12 29 12 45 0" fill="none" stroke="#393D30" strokeWidth="3" strokeLinecap="round" opacity="0.3" />
-        </g>
-      );
-    })}
-  </svg>
-);
-
 export const HeritageRosette = ({ className = "" }: { className?: string }) => {
   const petals = Array.from({ length: 16 });
   const rays = Array.from({ length: 32 });
@@ -1225,12 +1192,8 @@ export default function SriLankanCinematicHome() {
   return (
     <main>
       <CinematicHero />
-      <IntroSection />
+      <HomepageBelowHero />
       <ScrollCinema />
-      <PhotoReelSection />
-      <ApartmentStory />
-      <OutdoorLivingBand />
-      <ClosingCTA />
     </main>
   );
 }

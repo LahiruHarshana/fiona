@@ -1,80 +1,98 @@
 import ContactForm from "@/components/ContactForm";
-import PageHero from "@/components/PageHero";
-import Reveal, { Stagger, StaggerItem } from "@/components/Reveal";
-import { Mail, MapPin, Phone } from "lucide-react";
-import Link from "next/link";
-import { HeritageRosette, LiyaVelaBorder } from "@/components/SriLankanCinematicHome";
+import { CinematicChapter, CinematicReveal, LuxuryMotif } from "@/components/luxury-motion";
+import PremiumPageHero from "@/components/shared/PremiumPageHero";
+import { pageMetadata } from "@/lib/seo";
+import { brand, contact } from "@/lib/site";
 import { villaImages } from "@/lib/villaMedia";
+import { Facebook, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import Link from "next/link";
+
+export const metadata = pageMetadata("contact");
 
 const contactDetails = [
   {
     icon: MapPin,
-    label: "Mihiripanna, Galle, Sri Lanka, 80m to the ocean",
-    href: null,
+    label: brand.location,
+    href: null as string | null,
   },
   {
     icon: Phone,
-    label: "+94 77 123 4567",
-    href: "tel:+94771234567",
+    label: `Phone / WhatsApp: ${contact.phoneDisplay}`,
+    href: contact.telHref,
+  },
+  {
+    icon: MessageCircle,
+    label: "Chat on WhatsApp",
+    href: contact.whatsapp,
   },
   {
     icon: Mail,
-    label: "stay@villafiona.com",
-    href: "mailto:stay@villafiona.com",
+    label: contact.email,
+    href: contact.mailtoHref,
+  },
+  {
+    icon: Instagram,
+    label: `Instagram ${contact.instagramHandle}`,
+    href: contact.instagram,
+  },
+  {
+    icon: Facebook,
+    label: `Facebook ${contact.facebookLabel}`,
+    href: contact.facebook,
   },
 ];
 
 export default function ContactPage() {
   return (
-    <main className="bg-ivory pb-20">
-      <PageHero
+    <main className="overflow-x-hidden bg-[#F4F0E7] pb-20">
+      <PremiumPageHero
         eyebrow="Contact"
-        title="Reserve your sanctuary."
-        copy="Share your dates, whether the one-bed apartment or larger two-beds room fits best, and any details we should shape with care."
+        title="Your Stay at Fiona Starts Here."
+        copy="Planning your visit to Sri Lanka? Use the WhatsApp booking request form to check availability, or contact Fiona Green Serenity by telephone or email. This website does not take instant bookings. Your stay is not confirmed until our team replies."
         image={villaImages.outdoor[12]}
+        overlay="night"
       />
 
-      <section className="editorial-container grid gap-12 py-24 max-sm:py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-32 relative isolate">
-        <div className="absolute top-10 right-0 opacity-[0.03] pointer-events-none mix-blend-multiply max-sm:-right-40">
-          <HeritageRosette className="h-[600px] w-[600px] text-olive-900 max-sm:h-[320px] max-sm:w-[320px]" />
-        </div>
+      <CinematicChapter>
+        <div className="editorial-container relative isolate grid gap-12 py-16 max-sm:py-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16 lg:py-28">
+          <LuxuryMotif className="pointer-events-none absolute right-0 top-8 h-72 w-72 text-[#203C30] opacity-[0.05] max-sm:hidden" />
 
-        <Reveal direction="left" className="relative z-10">
-          <div>
-            <p className="fine-label">Reservations</p>
-            <h2 className="mt-5 font-display text-5xl leading-tight text-olive-900 max-sm:text-[2.55rem]">
-              Tell us when Villa FIONA should be ready.
-            </h2>
-            <Stagger className="mt-10 space-y-5 text-sm leading-7 text-olive-900/70 font-light" staggerDelay={0.08}>
+          <CinematicReveal direction="left" className="relative z-10">
+            <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#A3AA88]">Availability enquiry</p>
+            <h2 className="mt-5 font-display text-5xl leading-tight text-[#203C30] max-sm:text-[2.55rem]">{brand.name}</h2>
+            <p className="mt-6 max-w-md text-sm leading-7 text-[#203C30]/75 font-light">
+              Choose an apartment, dates and guest details. You send the prepared WhatsApp message yourself. Nothing is booked until Fiona replies.
+            </p>
+            <ul className="mt-10 space-y-5 text-sm leading-7 text-[#203C30]/80 font-light">
               {contactDetails.map((detail) => (
-                <StaggerItem key={detail.label} direction="left">
+                <li key={detail.label}>
                   {detail.href ? (
-                    <Link href={detail.href} className="flex gap-3 transition-colors hover:text-gold-deep">
-                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+                    <Link
+                      href={detail.href}
+                      className="flex gap-3 transition-colors hover:text-[#244D39]"
+                      {...(detail.href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-[#A3AA88]" aria-hidden="true" />
                       {detail.label}
                     </Link>
                   ) : (
                     <p className="flex gap-3">
-                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-[#A3AA88]" aria-hidden="true" />
                       {detail.label}
                     </p>
                   )}
-                </StaggerItem>
+                </li>
               ))}
-            </Stagger>
+            </ul>
+          </CinematicReveal>
+
+          <div className="relative z-10">
+            <ContactForm />
           </div>
-        </Reveal>
-
-        <Reveal direction="right" delay={0.15} className="relative z-10">
-          <ContactForm />
-        </Reveal>
-      </section>
-
-      <Reveal direction="none">
-        <div className="w-full mt-10">
-          <LiyaVelaBorder className="w-full h-auto text-gold opacity-80" />
         </div>
-      </Reveal>
+      </CinematicChapter>
     </main>
   );
 }

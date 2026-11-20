@@ -1,0 +1,48 @@
+@keyframes home-reveal-left {
+  from {
+    clip-path: inset(0 36% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes home-reveal-right {
+  from {
+    clip-path: inset(0 0 0 36%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes home-reveal-up {
+  from {
+    clip-path: inset(28% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.revealLeft,
+.revealRight,
+.revealUp {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (min-width: 1024px) {
+  @media (prefers-reduced-motion: no-preference) {
+    .revealLeft {
+      animation: home-reveal-left 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .revealRight {
+      animation: home-reveal-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .revealUp {
+      animation: home-reveal-up 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+  }
+}

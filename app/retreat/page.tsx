@@ -1,7 +1,9 @@
-import PageHero from "@/components/PageHero";
+import PremiumPageHero from "@/components/shared/PremiumPageHero";
 import Reveal, { Stagger, StaggerItem } from "@/components/Reveal";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { Leaf, Sparkles, SunMedium } from "lucide-react";
-import { HeritageRosette, LiyaVelaBorder } from "@/components/SriLankanCinematicHome";
+import { HeritageRosette } from "@/components/SriLankanCinematicHome";
 import { villaImages } from "@/lib/villaMedia";
 
 const values = [
@@ -22,15 +24,33 @@ const values = [
   },
 ];
 
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
+
 export default function RetreatPage() {
   return (
     <main className="bg-ivory pb-20">
-      <PageHero
+      <PremiumPageHero
         eyebrow="The Retreat"
         title="A private house revealed through palms, veranda, and light."
         copy="The new photos show Fiona as a compact tropical retreat: garden frontage below, balcony living above, and warm rooms arranged for slow South Coast days."
         image={villaImages.outdoor[2]}
+        overlay="garden"
       />
+
+      <p className="editorial-container relative z-10 pb-2 text-sm leading-7 text-olive-900/80">
+        This page is older cinematic copy and is not the approved About Fiona page. For current
+        information about Fiona Green Serenity, see{" "}
+        <Link href="/about" className="underline underline-offset-4">
+          About
+        </Link>{" "}
+        and{" "}
+        <Link href="/apartments" className="underline underline-offset-4">
+          Apartments
+        </Link>
+        . Dining, spa and housekeeping extras mentioned on this page are not confirmed amenities.
+      </p>
 
       <Reveal direction="up">
         <section className="editorial-container grid gap-12 py-24 max-sm:py-16 relative isolate lg:grid-cols-[0.9fr_1.1fr] lg:py-32">
@@ -69,12 +89,6 @@ export default function RetreatPage() {
             ))}
           </div>
         </section>
-      </Reveal>
-
-      <Reveal direction="none">
-        <div className="w-full mt-20">
-          <LiyaVelaBorder className="w-full h-auto text-gold opacity-80" />
-        </div>
       </Reveal>
     </main>
   );
