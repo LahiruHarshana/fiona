@@ -1,18 +1,19 @@
-import DestinationCard from "@/components/explore/DestinationCard";
+import AdventureChapter from "@/components/explore-galle/AdventureChapter";
+import BeachChapter from "@/components/explore-galle/BeachChapter";
+import ExploreCinematicHero from "@/components/explore-galle/ExploreCinematicHero";
+import ExploreFinale from "@/components/explore-galle/ExploreFinale";
+import HeritageChapter from "@/components/explore-galle/HeritageChapter";
+import NatureChapter from "@/components/explore-galle/NatureChapter";
 import ExploreMotion from "@/components/explore/ExploreMotion";
-import { CinematicChapter, CinematicReveal, LuxuryMotif, StaggerText } from "@/components/luxury-motion";
-import PremiumPageHero from "@/components/shared/PremiumPageHero";
 import {
   adventureActivities,
   adventureDisclaimer,
   destinationCategories,
   destinationsByCategory,
-  exploreGalleClosing,
   exploreGalleIntro,
 } from "@/lib/destinations";
 import { pageMetadata } from "@/lib/seo";
 import { brand } from "@/lib/site";
-import Link from "next/link";
 
 export const metadata = pageMetadata("exploreGalle");
 
@@ -25,33 +26,25 @@ const categoryNotes: Record<string, string> = {
   adventure: adventureDisclaimer,
 };
 
-const chapterNumbers = ["01", "02", "03", "04"] as const;
-
 export default function ExploreGallePage() {
-  const magazineCategories = destinationCategories.filter((category) => category.id !== "adventure");
+  const beaches = destinationsByCategory("beaches");
+  const culture = destinationsByCategory("culture");
+  const nature = destinationsByCategory("nature");
 
   return (
     <ExploreMotion>
-      <main className="overflow-x-hidden bg-[#F4F0E7] pb-20">
-        <PremiumPageHero
-          eyebrow="Explore Galle"
-          title={exploreGalleIntro.h1}
-          copy={exploreGalleIntro.copy}
-        />
+      <main className="bg-[#F4F0E7]">
+        <ExploreCinematicHero title={exploreGalleIntro.h1} copy={exploreGalleIntro.copy} />
 
-        <CinematicChapter>
-          <div className="editorial-container relative isolate py-16 lg:py-24">
-            <LuxuryMotif className="pointer-events-none absolute right-4 top-10 h-64 w-64 text-[#203C30] opacity-[0.06] max-sm:hidden" />
-            <CinematicReveal className="max-w-3xl">
-              <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-fiona-brand">South Coast notes</p>
-              <p className="mt-6 font-display text-3xl leading-snug text-fiona-ink sm:text-4xl">{exploreGalleIntro.pace}</p>
-              <p className="mt-6 text-sm leading-7 text-fiona-ink/90">{exploreGalleIntro.accommodationNote}</p>
-              <p className="mt-4 text-sm text-fiona-brand">
-                {brand.name} · {brand.location}
-              </p>
-            </CinematicReveal>
+        <section className="bg-[#F4F0E7] py-14 lg:py-16">
+          <div className="editorial-container max-w-3xl">
+            <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#244D39]">South Coast notes</p>
+            <p className="mt-6 font-display text-3xl leading-snug text-[#203C30] sm:text-4xl">{exploreGalleIntro.pace}</p>
+            <p className="mt-6 text-sm leading-7 text-[#203C30]">
+              {brand.name} · {brand.location}
+            </p>
           </div>
-        </CinematicChapter>
+        </section>
 
         <nav aria-label="Destination categories" className="editorial-container pb-4">
           <ul className="flex flex-wrap gap-x-6 gap-y-3 border-y border-[#D7C5A7]/80 py-5">
@@ -59,9 +52,9 @@ export default function ExploreGallePage() {
               <li key={category.id}>
                 <a
                   href={category.href}
-                  className="inline-flex min-h-11 items-center text-xs font-bold uppercase tracking-[0.16em] text-fiona-brand transition-colors hover:text-fiona-ink"
+                  className="inline-flex min-h-11 items-center text-xs font-bold uppercase tracking-[0.16em] text-[#244D39] transition-colors hover:text-[#203C30]"
                 >
-                  <span className="mr-2 font-sans tabular-nums text-fiona-brand">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="mr-2 font-sans tabular-nums">{String(index + 1).padStart(2, "0")}</span>
                   {category.label}
                 </a>
               </li>
@@ -69,93 +62,23 @@ export default function ExploreGallePage() {
           </ul>
         </nav>
 
-        {magazineCategories.map((category, chapterIndex) => {
-          const items = destinationsByCategory(category.id);
-          const tone = chapterIndex % 2 === 1 ? "sage" : "ivory";
+        <BeachChapter destinations={beaches} note={categoryNotes.beaches} />
+        <HeritageChapter destinations={culture} note={categoryNotes.culture} />
+        <NatureChapter destinations={nature} note={categoryNotes.nature} />
+        <AdventureChapter activities={adventureActivities} disclaimer={adventureDisclaimer} />
 
-          return (
-            <CinematicChapter key={category.id} id={category.id} tone={tone}>
-              <div className="editorial-container grid gap-10 py-16 lg:grid-cols-[minmax(0,0.32fr)_minmax(0,0.68fr)] lg:items-start lg:gap-16 lg:py-24">
-                <CinematicReveal className="lg:sticky lg:top-28">
-                  <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-fiona-brand">
-                    {chapterNumbers[chapterIndex]}
-                  </p>
-                  <StaggerText
-                    text={category.label}
-                    className="mt-4 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl"
-                  />
-                  <p className="mt-5 text-sm leading-7 text-fiona-ink/90">{categoryNotes[category.id]}</p>
-                </CinematicReveal>
-                <div>
-                  {items.map((destination, index) => (
-                    <CinematicReveal key={destination.id} delay={Math.min(index, 4) * 0.05}>
-                      <DestinationCard destination={destination} index={index} />
-                    </CinematicReveal>
-                  ))}
-                </div>
-              </div>
-            </CinematicChapter>
-          );
-        })}
-
-        <CinematicChapter id="adventure" tone="sage">
-          <div className="editorial-container grid gap-10 py-16 lg:grid-cols-[minmax(0,0.32fr)_minmax(0,0.68fr)] lg:items-start lg:gap-16 lg:py-24">
-            <CinematicReveal className="lg:sticky lg:top-28">
-              <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#244D39]">04</p>
-              <h2 className="mt-4 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">Adventure & Activities</h2>
-              <p className="mt-5 text-sm leading-7 text-[#203C30]">{adventureDisclaimer}</p>
-            </CinematicReveal>
-            <div>
-              {adventureActivities.map((activity, index) => (
-                <CinematicReveal key={activity.id} delay={Math.min(index, 4) * 0.05}>
-                  <DestinationCard destination={activity} index={index} />
-                </CinematicReveal>
-              ))}
-            </div>
-          </div>
-        </CinematicChapter>
-
-        <CinematicChapter id="map" tone="sage">
+        <section id="map" className="bg-[#F4F0E7]">
           <div className="editorial-container max-w-3xl py-16 lg:py-24">
-            <CinematicReveal>
-              <h2 className="font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">Map of the South Coast</h2>
-              <p className="mt-5 text-base leading-8 text-fiona-ink/90 font-light">
-                A live map of Fiona Green Serenity and nearby attractions will be published after the
-                owner confirms the official property location pin. Distances, driving times and map
-                markers are not shown until that pin is verified. No coordinates have been guessed.
-              </p>
-            </CinematicReveal>
+            <h2 className="font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">Map of the South Coast</h2>
+            <p className="mt-5 text-base font-light leading-8 text-[#203C30]">
+              A live map of Fiona Green Serenity and nearby attractions will be published after the owner confirms the
+              official property location pin. Distances, driving times and map markers are not shown until that pin is
+              verified. No coordinates have been guessed.
+            </p>
           </div>
-        </CinematicChapter>
+        </section>
 
-        <CinematicChapter tone="night">
-          <div className="editorial-container max-w-3xl py-20 lg:py-28">
-            <CinematicReveal>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-fiona-accent">Stay at Fiona</p>
-              <h2 className="mt-5 font-display text-4xl leading-tight text-[#F4F0E7] sm:text-5xl">{exploreGalleClosing.heading}</h2>
-              <p className="mt-6 text-base leading-8 text-[#F4F0E7]/85 font-light">{exploreGalleClosing.copy}</p>
-              <p className="mt-4 text-sm leading-7 text-[#D7C5A7]">
-                Contact Fiona directly. This website does not take instant bookings.
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link
-                  href={exploreGalleClosing.primaryHref}
-                  className="inline-flex items-center justify-center border border-[#D7C5A7] bg-[#F4F0E7] px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#203C30] transition-colors hover:bg-transparent hover:text-[#F4F0E7] max-sm:w-full"
-                >
-                  {exploreGalleClosing.primaryLabel}
-                </Link>
-                <a
-                  href={exploreGalleClosing.secondaryHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center border border-[#D7C5A7] px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#F4F0E7] transition-colors hover:bg-[#F4F0E7] hover:text-[#203C30] max-sm:w-full"
-                >
-                  {exploreGalleClosing.secondaryLabel}
-                </a>
-              </div>
-            </CinematicReveal>
-          </div>
-        </CinematicChapter>
+        <ExploreFinale />
       </main>
     </ExploreMotion>
   );

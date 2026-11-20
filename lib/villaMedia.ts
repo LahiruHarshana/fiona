@@ -1,3 +1,5 @@
+import { optimizedPublicSrc } from "@/lib/webpAdoptedPaths";
+
 export type VillaAlbum = {
   id: string;
   title: string;
@@ -14,7 +16,7 @@ export type VillaArchiveImage = {
 };
 
 const series = (base: string, count: number) =>
-  Array.from({ length: count }, (_, index) => `${base}/${index + 1}.jpeg`);
+  Array.from({ length: count }, (_, index) => optimizedPublicSrc(`${base}/${index + 1}.jpeg`));
 
 export const villaImages = {
   drone: series("/Drone", 9),

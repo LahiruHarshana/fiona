@@ -471,7 +471,7 @@ function CinematicHero() {
 
   const heroSlides = [
     {
-      image: "/fiona-images/707902450_122124969795184570_1085409261198412845_n.png",
+      image: "/fiona-images/707902450_122124969795184570_1085409261198412845_n.webp",
       title: "FIONA",
       kicker: "Discover Villa",
       desc: "A tropical sanctuary in Mihiripanna. Purely Green Serenity waiting to be discovered under the coastal palms.",
