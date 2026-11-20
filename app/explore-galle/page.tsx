@@ -43,10 +43,10 @@ export default function ExploreGallePage() {
           <div className="editorial-container relative isolate py-16 lg:py-24">
             <LuxuryMotif className="pointer-events-none absolute right-4 top-10 h-64 w-64 text-[#203C30] opacity-[0.06] max-sm:hidden" />
             <CinematicReveal className="max-w-3xl">
-              <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#A3AA88]">South Coast notes</p>
-              <p className="mt-6 font-display text-3xl leading-snug text-[#203C30] sm:text-4xl">{exploreGalleIntro.pace}</p>
-              <p className="mt-6 text-sm leading-7 text-[#203C30]/70">{exploreGalleIntro.accommodationNote}</p>
-              <p className="mt-4 text-sm text-[#A3AA88]">
+              <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-fiona-brand">South Coast notes</p>
+              <p className="mt-6 font-display text-3xl leading-snug text-fiona-ink sm:text-4xl">{exploreGalleIntro.pace}</p>
+              <p className="mt-6 text-sm leading-7 text-fiona-ink/90">{exploreGalleIntro.accommodationNote}</p>
+              <p className="mt-4 text-sm text-fiona-brand">
                 {brand.name} · {brand.location}
               </p>
             </CinematicReveal>
@@ -59,9 +59,9 @@ export default function ExploreGallePage() {
               <li key={category.id}>
                 <a
                   href={category.href}
-                  className="inline-flex min-h-11 items-center text-xs font-bold uppercase tracking-[0.16em] text-[#244D39] transition-colors hover:text-[#203C30]"
+                  className="inline-flex min-h-11 items-center text-xs font-bold uppercase tracking-[0.16em] text-fiona-brand transition-colors hover:text-fiona-ink"
                 >
-                  <span className="mr-2 font-sans tabular-nums text-[#A3AA88]">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="mr-2 font-sans tabular-nums text-fiona-brand">{String(index + 1).padStart(2, "0")}</span>
                   {category.label}
                 </a>
               </li>
@@ -77,14 +77,14 @@ export default function ExploreGallePage() {
             <CinematicChapter key={category.id} id={category.id} tone={tone}>
               <div className="editorial-container grid gap-10 py-16 lg:grid-cols-[minmax(0,0.32fr)_minmax(0,0.68fr)] lg:items-start lg:gap-16 lg:py-24">
                 <CinematicReveal className="lg:sticky lg:top-28">
-                  <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#A3AA88]">
+                  <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-fiona-brand">
                     {chapterNumbers[chapterIndex]}
                   </p>
                   <StaggerText
                     text={category.label}
                     className="mt-4 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl"
                   />
-                  <p className="mt-5 text-sm leading-7 text-[#203C30]/75">{categoryNotes[category.id]}</p>
+                  <p className="mt-5 text-sm leading-7 text-fiona-ink/90">{categoryNotes[category.id]}</p>
                 </CinematicReveal>
                 <div>
                   {items.map((destination, index) => (
@@ -98,26 +98,17 @@ export default function ExploreGallePage() {
           );
         })}
 
-        <CinematicChapter id="adventure" tone="forest">
+        <CinematicChapter id="adventure" tone="sage">
           <div className="editorial-container grid gap-10 py-16 lg:grid-cols-[minmax(0,0.32fr)_minmax(0,0.68fr)] lg:items-start lg:gap-16 lg:py-24">
             <CinematicReveal className="lg:sticky lg:top-28">
-              <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#D7C5A7]">04</p>
-              <h2 className="mt-4 font-display text-4xl leading-tight text-[#F4F0E7] sm:text-5xl">Adventure & Activities</h2>
-              <p className="mt-5 text-sm leading-7 text-[#F4F0E7]/80">{adventureDisclaimer}</p>
+              <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#244D39]">04</p>
+              <h2 className="mt-4 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">Adventure & Activities</h2>
+              <p className="mt-5 text-sm leading-7 text-[#203C30]">{adventureDisclaimer}</p>
             </CinematicReveal>
             <div>
               {adventureActivities.map((activity, index) => (
                 <CinematicReveal key={activity.id} delay={Math.min(index, 4) * 0.05}>
-                  <article id={activity.slug} className="border-t border-[#F4F0E7]/20 py-8">
-                    <p className="font-sans text-[0.65rem] font-semibold tabular-nums tracking-[0.28em] text-[#D7C5A7]">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-[#D7C5A7]">
-                      {activity.independentlyOperated ? "Independently operated" : "Visitor destination"}
-                    </p>
-                    <h3 className="mt-3 font-display text-2xl leading-tight text-[#F4F0E7] sm:text-3xl">{activity.name}</h3>
-                    <p className="mt-4 text-sm leading-7 text-[#F4F0E7]/80 font-light">{activity.description}</p>
-                  </article>
+                  <DestinationCard destination={activity} index={index} />
                 </CinematicReveal>
               ))}
             </div>
@@ -128,7 +119,7 @@ export default function ExploreGallePage() {
           <div className="editorial-container max-w-3xl py-16 lg:py-24">
             <CinematicReveal>
               <h2 className="font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">Map of the South Coast</h2>
-              <p className="mt-5 text-base leading-8 text-[#203C30]/85 font-light">
+              <p className="mt-5 text-base leading-8 text-fiona-ink/90 font-light">
                 A live map of Fiona Green Serenity and nearby attractions will be published after the
                 owner confirms the official property location pin. Distances, driving times and map
                 markers are not shown until that pin is verified. No coordinates have been guessed.
@@ -140,8 +131,8 @@ export default function ExploreGallePage() {
         <CinematicChapter tone="night">
           <div className="editorial-container max-w-3xl py-20 lg:py-28">
             <CinematicReveal>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#A3AA88]">Stay at Fiona</p>
-              <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">{exploreGalleClosing.heading}</h2>
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-fiona-accent">Stay at Fiona</p>
+              <h2 className="mt-5 font-display text-4xl leading-tight text-[#F4F0E7] sm:text-5xl">{exploreGalleClosing.heading}</h2>
               <p className="mt-6 text-base leading-8 text-[#F4F0E7]/85 font-light">{exploreGalleClosing.copy}</p>
               <p className="mt-4 text-sm leading-7 text-[#D7C5A7]">
                 Contact Fiona directly. This website does not take instant bookings.

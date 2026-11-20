@@ -34,7 +34,7 @@ export default function HomeSouthCoast() {
           {homepageSouthCoast.heading}
         </motion.h2>
         <motion.p
-          className="mt-6 text-base font-light leading-8 text-[#F4F0E7]/85"
+          className="mt-6 text-base font-light leading-8 text-fiona-ivory/90"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

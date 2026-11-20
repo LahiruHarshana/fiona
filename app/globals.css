@@ -5,6 +5,13 @@
 @layer base {
   :root {
     color-scheme: light;
+    --fiona-bg-primary: #f4f0e7;
+    --fiona-bg-dark: #203c30;
+    --fiona-brand-primary: #244d39;
+    --fiona-accent: #d7c5a7;
+    --fiona-accent-secondary: #a3aa88;
+    --fiona-text-on-dark: #f4f0e7;
+    --fiona-text-on-light: #203c30;
   }
 
   html {
@@ -426,6 +433,16 @@
 @layer components {
   .editorial-container {
     @apply mx-auto max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .fiona-surface-dark {
+    background-color: #203c30;
+    color: #f4f0e7;
+  }
+
+  .fiona-surface-ivory {
+    background-color: #f4f0e7;
+    color: #203c30;
   }
 
   .fine-label {

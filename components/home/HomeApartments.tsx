@@ -10,7 +10,7 @@ export default function HomeApartments() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section id="discover-apartments" className="relative isolate overflow-x-hidden bg-[#244D39]/6 py-16 lg:py-28">
+    <section id="discover-apartments" className="relative isolate overflow-x-hidden border-y border-fiona-accent/55 bg-fiona-ivory py-16 lg:py-28">
       <div className="editorial-container">
         <motion.div
           className="max-w-3xl"
@@ -19,13 +19,13 @@ export default function HomeApartments() {
           viewport={{ once: true }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: homeEase }}
         >
-          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-[#A3AA88]">
+          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-fiona-brand">
             03 — Discover Our Apartments
           </p>
           <h2 className="mt-5 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">
             {homepageApartments.heading}
           </h2>
-          <p className="mt-6 text-base font-light leading-8 text-[#203C30]/85">{homepageApartments.intro}</p>
+          <p className="mt-6 text-base font-light leading-8 text-fiona-ink/90">{homepageApartments.intro}</p>
         </motion.div>
 
         <div className="mt-16 space-y-20 lg:space-y-28">
@@ -60,11 +60,11 @@ export default function HomeApartments() {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: homeEase }}
                 >
-                  <p className="font-sans text-[11px] tracking-[0.28em] text-[#A3AA88]">
+                  <p className="font-sans text-[11px] tracking-[0.28em] text-fiona-brand">
                     {String(index + 1).padStart(2, "0")} / 02
                   </p>
                   <h3 className="mt-4 font-display text-3xl leading-tight text-[#203C30] sm:text-4xl">{unit.name}</h3>
-                  <p className="mt-5 text-base font-light leading-8 text-[#203C30]/85">{unit.copy}</p>
+                  <p className="mt-5 text-base font-light leading-8 text-fiona-ink/90">{unit.copy}</p>
                   <ul className="mt-7 space-y-3">
                     {unit.highlights.map((highlight) => (
                       <li

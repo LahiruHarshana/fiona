@@ -28,8 +28,8 @@ export default function ApartmentsIntro({
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: apartmentsEase }}
         >
-          <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-[#A3AA88]">Two Distinctive Ways to Stay</p>
-          <p className="mt-6 max-w-2xl text-lg font-light leading-8 text-[#203C30]/85 max-sm:text-base">
+          <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-fiona-brand">Two Distinctive Ways to Stay</p>
+          <p className="mt-6 max-w-2xl text-lg font-light leading-8 text-fiona-ink/90 max-sm:text-base">
             {copy}
           </p>
         </motion.div>
@@ -48,7 +48,7 @@ export default function ApartmentsIntro({
                 className="group block min-h-11 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#244D39]"
               >
                 <span className="block font-sans text-sm tracking-[0.28em] text-[#203C30]">{chapter.index}</span>
-                <span className="mt-2 block max-w-[11rem] text-xs uppercase tracking-[0.16em] text-[#A3AA88] transition-colors group-hover:text-[#244D39]">
+                <span className="mt-2 block max-w-[11rem] text-xs uppercase tracking-[0.16em] text-fiona-brand transition-colors group-hover:text-fiona-ink">
                   {chapter.name}
                 </span>
               </Link>

@@ -135,7 +135,7 @@ export default function WhatsAppBookingForm() {
                   className={`flex min-h-11 cursor-pointer items-center gap-3 border px-4 py-3 text-sm ${
                     selected
                       ? "border-[#244D39] bg-[#244D39] text-[#F4F0E7]"
-                      : "border-[#D7C5A7] bg-[#FDFBF7] text-[#203C30]"
+                      : "border-[#D7C5A7] bg-[#F4F0E7] text-[#203C30]"
                   }`}
                 >
                   <input
@@ -299,7 +299,7 @@ export default function WhatsAppBookingForm() {
           </p>
         </div>
 
-        <section className="mt-8 border border-[#D7C5A7] bg-[#FDFBF7] p-4" aria-labelledby={`${formId}-preview-heading`}>
+        <section className="mt-8 border border-[#D7C5A7] bg-[#F4F0E7] p-4" aria-labelledby={`${formId}-preview-heading`}>
           <h3 id={`${formId}-preview-heading`} className="text-sm font-medium text-[#203C30]">
             Booking request preview
           </h3>

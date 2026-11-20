@@ -99,7 +99,7 @@ export default function GalleryExperience() {
         <h2 id={`${filterId}-heading`} className="font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">
           The Fiona photograph collection
         </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-[#203C30]/75">
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-fiona-ink/90">
           A curated set of genuine property photographs. Kitchens, the balcony and the garden are parts of
           the stay, not additional apartments. The upper suite has two separate bedrooms.
         </p>

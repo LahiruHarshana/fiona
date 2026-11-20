@@ -21,11 +21,11 @@ export default function HomeGallery() {
           viewport={{ once: true }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: homeEase }}
         >
-          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-[#A3AA88]">06 — Gallery</p>
+          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-fiona-brand">06 — Gallery</p>
           <h2 className="mt-5 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">
             {homepageGallery.heading}
           </h2>
-          <p className="mt-6 text-base font-light leading-8 text-[#203C30]/85">{homepageGallery.copy}</p>
+          <p className="mt-6 text-base font-light leading-8 text-fiona-ink/90">{homepageGallery.copy}</p>
         </motion.div>
 
         <div className="mt-12 grid grid-cols-2 gap-3 lg:grid-cols-12 lg:gap-4">

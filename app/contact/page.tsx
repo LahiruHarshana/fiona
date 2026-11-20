@@ -58,28 +58,28 @@ export default function ContactPage() {
           <LuxuryMotif className="pointer-events-none absolute right-0 top-8 h-72 w-72 text-[#203C30] opacity-[0.05] max-sm:hidden" />
 
           <CinematicReveal direction="left" className="relative z-10">
-            <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#A3AA88]">Availability enquiry</p>
-            <h2 className="mt-5 font-display text-5xl leading-tight text-[#203C30] max-sm:text-[2.55rem]">{brand.name}</h2>
-            <p className="mt-6 max-w-md text-sm leading-7 text-[#203C30]/75 font-light">
+            <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-fiona-brand">Availability enquiry</p>
+            <h2 className="mt-5 font-display text-5xl leading-tight text-fiona-ink max-sm:text-[2.55rem]">{brand.name}</h2>
+            <p className="mt-6 max-w-md text-sm leading-7 text-fiona-ink/90 font-light">
               Choose an apartment, dates and guest details. You send the prepared WhatsApp message yourself. Nothing is booked until Fiona replies.
             </p>
-            <ul className="mt-10 space-y-5 text-sm leading-7 text-[#203C30]/80 font-light">
+            <ul className="mt-10 space-y-5 text-sm leading-7 text-fiona-ink/90 font-light">
               {contactDetails.map((detail) => (
                 <li key={detail.label}>
                   {detail.href ? (
                     <Link
                       href={detail.href}
-                      className="flex gap-3 transition-colors hover:text-[#244D39]"
+                      className="flex gap-3 transition-colors hover:text-fiona-brand"
                       {...(detail.href.startsWith("http")
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
                     >
-                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-[#A3AA88]" aria-hidden="true" />
+                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-fiona-sage" aria-hidden="true" />
                       {detail.label}
                     </Link>
                   ) : (
                     <p className="flex gap-3">
-                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-[#A3AA88]" aria-hidden="true" />
+                      <detail.icon className="mt-1 h-4 w-4 shrink-0 text-fiona-sage" aria-hidden="true" />
                       {detail.label}
                     </p>
                   )}

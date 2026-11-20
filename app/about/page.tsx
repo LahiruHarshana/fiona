@@ -43,13 +43,13 @@ export default function AboutPage() {
             />
           </CinematicReveal>
           <CinematicReveal direction="right" delay={0.08}>
-            <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#A3AA88]">01</p>
-            <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-[#244D39]">About the house</p>
+            <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-fiona-brand">01</p>
+            <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-fiona-brand">About the house</p>
             <StaggerText
               text={aboutStory.heading}
-              className="mt-5 font-display text-4xl leading-tight text-[#203C30] max-sm:text-[2.15rem] sm:text-5xl"
+              className="mt-5 font-display text-4xl leading-tight text-fiona-ink max-sm:text-[2.15rem] sm:text-5xl"
             />
-            <p className="mt-6 text-base leading-8 text-[#203C30]/85 font-light">{aboutStory.copy}</p>
+            <p className="mt-6 text-base leading-8 text-fiona-ink/90 font-light">{aboutStory.copy}</p>
           </CinematicReveal>
         </div>
       </CinematicChapter>
@@ -57,13 +57,13 @@ export default function AboutPage() {
       <CinematicChapter id="our-hospitality" tone="sage">
         <div className="editorial-container relative grid items-center gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-28">
           <CinematicReveal direction="left" className="lg:order-1">
-            <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#A3AA88]">02</p>
-            <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-[#244D39]">How we welcome you</p>
+            <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-fiona-brand">02</p>
+            <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-fiona-brand">How we welcome you</p>
             <StaggerText
               text={aboutHospitality.heading}
-              className="mt-5 font-display text-4xl leading-tight text-[#203C30] max-sm:text-[2.15rem] sm:text-5xl"
+              className="mt-5 font-display text-4xl leading-tight text-fiona-ink max-sm:text-[2.15rem] sm:text-5xl"
             />
-            <p className="mt-6 text-base leading-8 text-[#203C30]/85 font-light">{aboutHospitality.copy}</p>
+            <p className="mt-6 text-base leading-8 text-fiona-ink/90 font-light">{aboutHospitality.copy}</p>
           </CinematicReveal>
           <CinematicReveal direction="right" className="lg:order-2">
             <MaskedImageReveal
@@ -77,18 +77,18 @@ export default function AboutPage() {
         </div>
       </CinematicChapter>
 
-      <CinematicChapter id="our-philosophy" tone="forest">
+      <CinematicChapter id="our-philosophy">
         <div className="editorial-container relative mx-auto max-w-3xl py-20 text-center lg:py-28">
           <CinematicReveal>
-            <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#D7C5A7]">03</p>
-            <h2 className="mt-5 font-display text-4xl leading-tight text-[#F4F0E7] max-sm:text-[2.15rem] sm:text-5xl">
+            <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-fiona-brand">03</p>
+            <h2 className="mt-5 font-display text-4xl leading-tight text-fiona-ink max-sm:text-[2.15rem] sm:text-5xl">
               {aboutPhilosophy.heading}
             </h2>
-            <p className="mt-6 font-display text-3xl leading-tight text-[#D7C5A7] max-sm:text-[1.85rem] sm:text-5xl">
+            <p className="mt-6 font-display text-3xl leading-tight text-fiona-brand max-sm:text-[1.85rem] sm:text-5xl">
               {aboutPhilosophy.subheading}
             </p>
-            <div className="mx-auto mt-8 h-px w-24 bg-[#A3AA88]" aria-hidden="true" />
-            <p className="mt-8 text-lg leading-8 text-[#F4F0E7]/85 font-light">{aboutPhilosophy.copy}</p>
+            <div className="mx-auto mt-8 h-px w-24 bg-fiona-accent" aria-hidden="true" />
+            <p className="mt-8 text-lg leading-8 text-fiona-ink/90 font-light">{aboutPhilosophy.copy}</p>
           </CinematicReveal>
         </div>
       </CinematicChapter>
@@ -96,9 +96,9 @@ export default function AboutPage() {
       <CinematicChapter tone="night">
         <div className="editorial-container relative z-10 max-w-3xl py-20 lg:py-28">
           <CinematicReveal>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#A3AA88]">Visit Fiona</p>
-            <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">{aboutClosing.heading}</h2>
-            <p className="mt-6 text-base leading-8 text-[#F4F0E7]/85 font-light">{aboutClosing.copy}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-fiona-accent">Visit Fiona</p>
+            <h2 className="mt-5 font-display text-4xl leading-tight text-[#F4F0E7] sm:text-5xl">{aboutClosing.heading}</h2>
+            <p className="mt-6 text-base leading-8 text-fiona-ivory/90 font-light">{aboutClosing.copy}</p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={aboutClosing.primaryHref}

@@ -22,7 +22,7 @@ export default function ApartmentStayCta() {
       </motion.div>
 
       <div className="editorial-container relative z-10 max-w-3xl">
-        <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#A3AA88]">Reservations</p>
+        <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-fiona-accent">Reservations</p>
         <motion.h2
           className="mt-5 font-display text-4xl leading-tight sm:text-5xl"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
@@ -32,12 +32,12 @@ export default function ApartmentStayCta() {
         >
           {stayYourWay.heading}
         </motion.h2>
-        <p className="mt-6 text-base font-light leading-8 text-[#F4F0E7]/85">{stayYourWay.copy}</p>
+        <p className="mt-6 text-base font-light leading-8 text-fiona-ivory/90">{stayYourWay.copy}</p>
         <p className="mt-5 text-sm leading-7 text-[#D7C5A7]">{stayYourWay.enquiryNote}</p>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href={stayYourWay.ctaHref}
-            className="inline-flex min-h-11 items-center justify-center border border-[#D7C5A7] px-6 text-[11px] font-medium uppercase tracking-[0.18em] text-[#F4F0E7] transition-colors duration-300 hover:bg-[#F4F0E7] hover:text-[#203C30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D7C5A7] max-sm:w-full"
+            className="inline-flex min-h-11 items-center justify-center border border-fiona-accent bg-fiona-ivory px-6 text-[11px] font-medium uppercase tracking-[0.18em] text-fiona-ink transition-colors duration-300 hover:bg-transparent hover:text-fiona-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fiona-accent max-sm:w-full"
           >
             Enquire About Your Stay
           </Link>

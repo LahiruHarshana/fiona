@@ -27,6 +27,13 @@ const config: Config = {
         },
         sage: "#8B9472",
         "sage-soft": "#C5CBB4",
+        fiona: {
+          ivory: "#F4F0E7",
+          ink: "#203C30",
+          brand: "#244D39",
+          accent: "#D7C5A7",
+          sage: "#A3AA88",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "Cormorant Garamond", "Georgia", "serif"],

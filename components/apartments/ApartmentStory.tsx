@@ -54,7 +54,7 @@ export default function ApartmentStory({ apartment, index, total, storyImage }: 
     <section
       ref={sectionRef}
       id={apartment.id}
-      className={`relative isolate overflow-x-hidden py-16 lg:py-28 ${index % 2 === 1 ? "bg-[#244D39]/6" : "bg-[#F4F0E7]"}`}
+      className={`relative isolate overflow-x-hidden py-16 lg:py-28 ${index % 2 === 1 ? "border-y border-fiona-accent/55 bg-fiona-ivory" : "bg-fiona-ivory"}`}
     >
       <div
         className={`pointer-events-none absolute -bottom-16 opacity-[0.05] text-[#203C30] max-lg:hidden ${
@@ -107,7 +107,7 @@ export default function ApartmentStory({ apartment, index, total, storyImage }: 
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.75, ease: apartmentsEase }}
         >
-          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-[#A3AA88]">{marker}</p>
+          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-fiona-brand">{marker}</p>
           <p className="mt-4 text-xs font-medium uppercase tracking-[0.22em] text-[#244D39]">{apartment.eyebrow}</p>
           <p className="mt-3 font-display text-2xl text-[#203C30] sm:text-3xl">{apartment.name}</p>
           <h2 className="mt-5 font-display text-4xl leading-[1.08] text-[#203C30] max-sm:text-[2.15rem] sm:text-5xl">
@@ -128,32 +128,32 @@ export default function ApartmentStory({ apartment, index, total, storyImage }: 
               </motion.span>
             ))}
           </h2>
-          <p className="mt-6 text-base font-light leading-8 text-[#203C30]/85">{apartment.description}</p>
+          <p className="mt-6 text-base font-light leading-8 text-fiona-ink/90">{apartment.description}</p>
 
           <dl className="mt-8 grid gap-x-8 gap-y-5 border-y border-[#D7C5A7]/80 py-7 text-sm sm:grid-cols-2">
             <div>
-              <dt className="uppercase tracking-[0.16em] text-[#A3AA88]">Floor</dt>
+              <dt className="uppercase tracking-[0.16em] text-fiona-brand">Floor</dt>
               <dd className="mt-1 text-base text-[#203C30]">{apartment.floor}</dd>
             </div>
             <div>
-              <dt className="uppercase tracking-[0.16em] text-[#A3AA88]">Bedrooms</dt>
+              <dt className="uppercase tracking-[0.16em] text-fiona-brand">Bedrooms</dt>
               <dd className="mt-1 text-base text-[#203C30]">{apartment.bedrooms}</dd>
             </div>
             <div>
-              <dt className="uppercase tracking-[0.16em] text-[#A3AA88]">Bathroom</dt>
+              <dt className="uppercase tracking-[0.16em] text-fiona-brand">Bathroom</dt>
               <dd className="mt-1 text-base text-[#203C30]">{apartment.bathroom}</dd>
             </div>
             <div>
-              <dt className="uppercase tracking-[0.16em] text-[#A3AA88]">Kitchen</dt>
+              <dt className="uppercase tracking-[0.16em] text-fiona-brand">Kitchen</dt>
               <dd className="mt-1 text-base text-[#203C30]">{apartment.kitchen}</dd>
             </div>
             <div className="sm:col-span-2">
-              <dt className="uppercase tracking-[0.16em] text-[#A3AA88]">Setting</dt>
+              <dt className="uppercase tracking-[0.16em] text-fiona-brand">Setting</dt>
               <dd className="mt-1 text-base text-[#203C30]">{apartment.outdoor}</dd>
             </div>
           </dl>
 
-          <p className="mt-6 text-sm leading-7 text-[#203C30]/80">
+          <p className="mt-6 text-sm leading-7 text-fiona-ink/90">
             <span className="font-medium text-[#244D39]">Ideal for: </span>
             {apartment.idealFor}
           </p>

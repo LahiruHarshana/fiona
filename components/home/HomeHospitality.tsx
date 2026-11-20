@@ -21,7 +21,7 @@ export default function HomeHospitality() {
         />
         <div>
           <motion.p
-            className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-[#A3AA88]"
+            className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-fiona-brand"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -44,7 +44,7 @@ export default function HomeHospitality() {
             ))}
           </h2>
           <motion.p
-            className="mt-6 text-base font-light leading-8 text-[#203C30]/85"
+            className="mt-6 text-base font-light leading-8 text-fiona-ink/90"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

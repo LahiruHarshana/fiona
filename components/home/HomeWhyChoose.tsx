@@ -19,7 +19,7 @@ export default function HomeWhyChoose() {
           viewport={{ once: true }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: homeEase }}
         >
-          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-[#A3AA88]">02 — Stay with us</p>
+          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-fiona-brand">02 — Stay with us</p>
           <h2 className="mt-5 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">Why Choose Fiona?</h2>
         </motion.div>
 
@@ -36,14 +36,14 @@ export default function HomeWhyChoose() {
                 viewport={{ once: true }}
                 transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : 0.06 * index, ease: homeEase }}
               >
-                <span className="font-sans text-[11px] tracking-[0.22em] text-[#A3AA88]">
+                <span className="font-sans text-[11px] tracking-[0.22em] text-fiona-brand">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div className="flex items-start gap-3">
-                  <Icon className="mt-1 h-4 w-4 shrink-0 text-[#A3AA88]" aria-hidden="true" />
+                  <Icon className="mt-1 h-4 w-4 shrink-0 text-fiona-sage" aria-hidden="true" />
                   <div>
                     <h3 className="font-display text-2xl text-[#203C30]">{item.title}</h3>
-                    <p className="mt-2 text-sm font-light leading-7 text-[#203C30]/80">{item.copy}</p>
+                    <p className="mt-2 text-sm font-light leading-7 text-fiona-ink/90">{item.copy}</p>
                   </div>
                 </div>
               </motion.li>

@@ -43,7 +43,7 @@ export default function ApartmentFacilities({
             key={facility.id}
             className="flex items-center gap-3 border-t border-[#D7C5A7]/70 py-3.5 text-sm text-[#203C30]"
           >
-            <Icon className="h-4 w-4 shrink-0 text-[#A3AA88]" aria-hidden="true" />
+            <Icon className="h-4 w-4 shrink-0 text-fiona-sage" aria-hidden="true" />
             {facility.label}
           </li>
         );

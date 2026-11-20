@@ -25,8 +25,8 @@ export default function GalleryPage() {
       <CinematicChapter tone="night">
         <div className="editorial-container max-w-3xl py-20 lg:py-28">
           <CinematicReveal>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#A3AA88]">Stay at Fiona</p>
-            <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">{galleryClosing.heading}</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-fiona-accent">Stay at Fiona</p>
+            <h2 className="mt-5 font-display text-4xl leading-tight text-[#F4F0E7] sm:text-5xl">{galleryClosing.heading}</h2>
             <p className="mt-6 text-base leading-8 text-[#F4F0E7]/85 font-light">{galleryClosing.copy}</p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link

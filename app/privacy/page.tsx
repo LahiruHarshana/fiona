@@ -17,13 +17,13 @@ export default function PrivacyPage() {
     <main className="overflow-x-hidden bg-[#F4F0E7] pb-20">
       <header className="border-b border-[#D7C5A7]/70 bg-[#F4F0E7] pt-28 pb-12 max-sm:pt-24">
         <div className="editorial-container max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#A3AA88]">Privacy · Draft</p>
-          <h1 className="mt-5 font-display text-4xl leading-tight text-[#203C30] sm:text-5xl">{draft.h1}</h1>
-          <p className="mt-6 text-base leading-8 text-[#203C30]/80 font-light">{draft.intro}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-fiona-brand">Privacy · Draft</p>
+          <h1 className="mt-5 font-display text-4xl leading-tight text-fiona-ink sm:text-5xl">{draft.h1}</h1>
+          <p className="mt-6 text-base leading-8 text-fiona-ink/90 font-light">{draft.intro}</p>
         </div>
       </header>
 
-      <article className="editorial-container max-w-3xl space-y-10 py-12 text-sm leading-7 text-[#203C30]/85 lg:py-16">
+      <article className="editorial-container max-w-3xl space-y-10 py-12 text-sm leading-7 text-fiona-ink/90 lg:py-16">
         <p className="border-l-2 border-[#D7C5A7] bg-transparent px-4 py-3 text-[#203C30]">{draft.lastReviewedNote}</p>
 
         <section>

@@ -18,14 +18,8 @@ import Link from "next/link";
 export const metadata = pageMetadata("experiences");
 
 function chapterTone(index: number, hasPhoto: boolean) {
-  if (!hasPhoto && index === 2) {
+  if (!hasPhoto && (index === 2 || index === 4)) {
     return "night" as const;
-  }
-  if (!hasPhoto) {
-    return "forest" as const;
-  }
-  if (index % 2 === 1) {
-    return "sage" as const;
   }
   return "ivory" as const;
 }
@@ -45,11 +39,11 @@ export default function ExperiencesPage() {
         <div className="editorial-container relative isolate py-16 lg:py-24">
           <LuxuryMotif className="pointer-events-none absolute right-0 top-8 h-64 w-64 text-[#203C30] opacity-[0.06] max-sm:hidden" />
           <CinematicReveal className="max-w-3xl">
-            <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#A3AA88]">A stay, in chapters</p>
+            <p className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.28em] text-fiona-brand">A stay, in chapters</p>
             <p className="mt-6 max-w-2xl font-display text-3xl leading-snug text-[#203C30] sm:text-4xl">
               Garden living, balcony light, then the independent coast beyond the gate.
             </p>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-[#203C30]/80 font-light">
+            <p className="mt-6 max-w-3xl text-base leading-8 text-fiona-ink/90 font-light">
               Some moments belong to the garden and balcony at Fiona. Nearby beaches, restaurants and
               heritage places are independently operated. Fiona does not run tours, meals or spa
               services.
@@ -61,7 +55,7 @@ export default function ExperiencesPage() {
       {experienceItems.map((experience, index) => {
         const photo = experience.photo;
         const tone = chapterTone(index, Boolean(photo));
-        const dark = tone === "forest" || tone === "night";
+        const dark = tone === "night";
 
         if (photo) {
           const photoLeft = index % 2 === 0;
@@ -80,17 +74,17 @@ export default function ExperiencesPage() {
                   />
                 </CinematicReveal>
                 <CinematicReveal direction={photoLeft ? "right" : "left"} className={photoLeft ? "" : "lg:order-1"} delay={0.08}>
-                  <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-[#A3AA88]">
+                  <p className="font-sans text-xs font-semibold tabular-nums tracking-[0.28em] text-fiona-brand">
                     {experience.number}
                   </p>
-                  <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-[#244D39]">
+                  <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-fiona-brand">
                     {experience.settingLabel} · {experience.name}
                   </p>
                   <StaggerText
                     text={experience.headline}
-                    className="mt-5 font-display text-4xl leading-tight text-[#203C30] max-sm:text-[2.15rem] sm:text-5xl"
+                    className="mt-5 font-display text-4xl leading-tight text-fiona-ink max-sm:text-[2.15rem] sm:text-5xl"
                   />
-                  <p className="mt-6 text-base leading-8 text-[#203C30]/85 font-light">{experience.description}</p>
+                  <p className="mt-6 text-base leading-8 text-fiona-ink/90 font-light">{experience.description}</p>
                 </CinematicReveal>
               </div>
             </CinematicChapter>
@@ -106,19 +100,19 @@ export default function ExperiencesPage() {
                 }`}
               />
               <CinematicReveal className="relative max-w-3xl">
-                <p className={`font-sans text-xs font-semibold tabular-nums tracking-[0.28em] ${dark ? "text-[#D7C5A7]" : "text-[#A3AA88]"}`}>
+                <p className={`font-sans text-xs font-semibold tabular-nums tracking-[0.28em] ${dark ? "text-fiona-accent" : "text-fiona-brand"}`}>
                   {experience.number}
                 </p>
-                <p className={`mt-3 text-xs font-bold uppercase tracking-[0.2em] ${dark ? "text-[#D7C5A7]" : "text-[#244D39]"}`}>
+                <p className={`mt-3 text-xs font-bold uppercase tracking-[0.2em] ${dark ? "text-fiona-accent" : "text-fiona-brand"}`}>
                   {experience.settingLabel} · {experience.name}
                 </p>
                 <StaggerText
                   text={experience.headline}
                   className={`mt-5 font-display text-4xl leading-tight max-sm:text-[2.15rem] sm:text-5xl ${
-                    dark ? "text-[#F4F0E7]" : "text-[#203C30]"
+                    dark ? "text-fiona-ivory" : "text-fiona-ink"
                   }`}
                 />
-                <p className={`mt-6 text-base leading-8 font-light ${dark ? "text-[#F4F0E7]/85" : "text-[#203C30]/85"}`}>
+                <p className={`mt-6 text-base leading-8 font-light ${dark ? "text-fiona-ivory/90" : "text-fiona-ink/90"}`}>
                   {experience.description}
                 </p>
                 {experience.href ? (
@@ -142,8 +136,8 @@ export default function ExperiencesPage() {
       <CinematicChapter tone="night">
         <div className="editorial-container relative z-10 max-w-3xl py-20 lg:py-28">
           <CinematicReveal>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#A3AA88]">Plan your stay</p>
-            <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">{experiencesClosing.heading}</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-fiona-accent">Plan your stay</p>
+            <h2 className="mt-5 font-display text-4xl leading-tight text-[#F4F0E7] sm:text-5xl">{experiencesClosing.heading}</h2>
             <p className="mt-6 text-base leading-8 text-[#F4F0E7]/85 font-light">{experiencesClosing.copy}</p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
